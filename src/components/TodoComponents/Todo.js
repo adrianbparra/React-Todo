@@ -3,9 +3,19 @@ import React from "react";
 class ToDo extends React.Component {
 
 
+
+
+
     render(){
         return(
-        <div className={this.props.completed ? "completed": ""}>{this.props.task}</div>
+        <div 
+            // style={`"color: ${this.props.todoItem.completed ? "red" : "green"};"`}
+            className={this.props.todoItem.completed? "completed": ""}
+
+            onClick={()=>this.props.toggleCompleted(this.props.todoItem.id)}
+        >
+            <p>{this.props.todoItem.task}</p>
+        </div>
         )
     }
 }
