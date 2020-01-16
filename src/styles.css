@@ -2,6 +2,49 @@
     text-decoration: line-through;
 }
 
+
+
 p{
     cursor: pointer;
+}
+
+#root{
+    height: 100vh;
+}
+
+.main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(94, 230, 184);
+}
+
+.main h2{
+    font-size: 3rem;
+    font-style: italic;
+}
+
+
+form{
+    width: 80%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 3rem 2rem;
+
+}
+
+form input{
+    grid-column: 1/ 3;
+}
+
+form button{
+    cursor: pointer;
+    color:rgb(0, 0, 0);
+    background-color: rgb(129, 241, 245);
+    border: 1px solid rgb(94, 230, 184);
+}
+
+form button:hover{
+    border: 2px solid rgb(50, 126, 100);
 }

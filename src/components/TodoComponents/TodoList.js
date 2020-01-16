@@ -12,13 +12,13 @@ class TodoList extends React.Component{
 
     render(){
         return(
-            <div>
+            <ul>
                 {this.props.todoList.length < 1 ? "Add Some Notes" : this.props.todoList.map(
                     (todoItem) => {
                     return <ToDo key={todoItem.id} todoItem = {todoItem} toggleCompleted={this.props.toggleCompleted}/>
                     })
                 }
-            </div>
+            </ul>
         )
     }
 }

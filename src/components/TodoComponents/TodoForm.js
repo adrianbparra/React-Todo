@@ -30,14 +30,16 @@ class TodoForm extends React.Component{
     handleClearCompleted = e => {
         e.preventDefault();
 
-        
+        this.props.clearCompleted()
         console.log("clear completed")
+
+        
     }
 
     render() {
         return(
             <form onSubmit={this.handleSubmit}>
-                <input type="text" name="todoItem" value={this.state.todoItem} onChange={this.handleChanges} />
+                <input type="text" name="todoItem" value={this.state.todoItem} onChange={this.handleChanges} placeholder="Enter Task"/>
                 <button>Add ToDo</button>
                 <button onClick={this.handleClearCompleted}>Clear Completed</button>
             </form>
