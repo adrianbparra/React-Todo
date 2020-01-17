@@ -18,6 +18,49 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount(){
+
+    let toDoListLocal = localStorage.getItem("list");
+
+    let toDoArray = JSON.parse(toDoListLocal);
+    console.log(toDoListLocal)
+
+    if(toDoArray !== null){
+      this.setState({
+        ...this.state,
+        todoList : toDoArray.todoList
+      })
+    }
+
+  }
+
+  componentDidUpdate(){
+
+    let string = []
+
+    string = JSON.stringify(this.state)
+    console.log("didupdate",string)
+    localStorage.setItem("list", string)
+
+    // if(this.state.todoList.length < 1){
+    //   console.log("inside if")
+    //   let arrayOBj = []
+    //   string = JSON.stringify(arrayOBj)
+    //   localStorage.setItem("list", string)
+    // } else {
+    //   string = JSON.stringify(this.state.todoList)
+    //   localStorage.setItem("list", string)
+    //   console.log("inside if")
+    // }
+
+    
+
+    console.log(string)
+
+    
+
+  }
+
   addTodoTask = (note) => {
 
     console.log(note)

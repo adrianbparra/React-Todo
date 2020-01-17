@@ -8,11 +8,14 @@ import ToDo from "./Todo.js"
 class TodoList extends React.Component{
 
 
-   
+    
+
 
     render(){
+        console.log("todoList", this.props.todoList);
         return(
             <ul>
+                
                 {this.props.todoList.length < 1 ? "Add Some Notes" : this.props.todoList.map(
                     (todoItem) => {
                     return <ToDo key={todoItem.id} todoItem = {todoItem} toggleCompleted={this.props.toggleCompleted}/>

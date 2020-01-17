@@ -7,6 +7,7 @@ class ToDo extends React.Component {
 
 
     render(){
+        {console.log(this.props)}
         return(
         <li 
             // style={`"color: ${this.props.todoItem.completed ? "red" : "green"};"`}
