@@ -5,7 +5,8 @@ class TodoForm extends React.Component{
     constructor(){
         super()
         this.state={
-            todoItem : ""
+            todoItem : "",
+            searchTerm : ""
         }
     }
 
@@ -35,13 +36,27 @@ class TodoForm extends React.Component{
 
         
     }
+    handleSearch = e => {
+        // this.setState({
+        //     ...this.state,
+        //     searchTerm : e.target.value
+        // })
+
+        console.log("handle Search: ", e.target.value)
+
+        this.props.searchTask(e.target.value);
+
+        
+    }
 
     render() {
         return(
             <form onSubmit={this.handleSubmit}>
-                <input type="text" name="todoItem" value={this.state.todoItem} onChange={this.handleChanges} placeholder="Enter Task"/>
-                <button>Add ToDo</button>
-                <button onClick={this.handleClearCompleted}>Clear Completed</button>
+                <input className="search" type="text" name="searchTerm" value={this.state.search} onChange={this.handleSearch} placeholder="Search"/>
+                <input className="item" type="text" name="todoItem" value={this.state.todoItem} onChange={this.handleChanges} placeholder="Enter Task"/>
+                
+                <button className="add_btn">Add ToDo</button>
+                <button className="search_btn" onClick={this.handleClearCompleted}>Clear Completed</button>
             </form>
         )
     }

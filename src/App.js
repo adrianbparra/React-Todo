@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state={
 
 
-
+      searchResults: [],
       todoList : []
     }
   }
@@ -23,23 +23,27 @@ class App extends React.Component {
     let toDoListLocal = localStorage.getItem("list");
 
     let toDoArray = JSON.parse(toDoListLocal);
-    console.log(toDoListLocal)
+    // console.log(toDoListLocal)
 
     if(toDoArray !== null){
       this.setState({
         ...this.state,
-        todoList : toDoArray.todoList
+        todoList : toDoArray.todoList,
+        searchResults : toDoArray.searchResults,
       })
     }
 
   }
 
+
   componentDidUpdate(){
+
+    console.log("didupdate")
 
     let string = []
 
     string = JSON.stringify(this.state)
-    console.log("didupdate",string)
+    // console.log("didupdate",string)
     localStorage.setItem("list", string)
 
     // if(this.state.todoList.length < 1){
@@ -55,21 +59,53 @@ class App extends React.Component {
 
     
 
-    console.log(string)
+    // console.log(string)
 
     
 
   }
 
+
+  searchTask = (searchTerm) => {
+
+    // if(searchTerm === ""){
+    //   this.setState({
+    //     ...this.state,
+    //     searchResults : this.state.todoList
+    //   })
+    // }
+
+    console.log("inside searchTask----Search Term:",searchTerm)
+    const newResults = this.state.todoList.filter(items => {
+      
+      console.log("inside filter search",items.task)
+      return items.task.toLowerCase().includes(searchTerm.toLowerCase());
+    })
+
+    console.log("found", newResults)
+    this.setState({
+      ...this.state,
+      searchResults : newResults,
+    })
+
+
+  }
+
   addTodoTask = (note) => {
 
-    console.log(note)
+    console.log("inside addtodo task app",note)
+
+    const newNote = {task: note, id: Date.now(), completed: false}
 
     const newState = {
       ...this.state,
       todoList: [
         ...this.state.todoList,
-        {task: note, id: Date.now(), completed: false}
+        newNote
+      ],
+      searchResults : [
+        ...this.state.searchResults,
+        newNote
       ]
     }
 
@@ -78,11 +114,11 @@ class App extends React.Component {
   }
 
   toggleCompleted =(id)=> {
-    console.log(id)
+    console.log("id toggle complete",id)
 
 
     const newState = {
-      ...this.state,
+      
       todoList: this.state.todoList.map(task => {
         if(task.id === id){
           return{
@@ -91,13 +127,21 @@ class App extends React.Component {
           }
         }
         return task
+      }),
+      searchResults : this.state.searchResults.map(task => {
+        if(task.id === id){
+          return {
+            ...task,
+            completed: !task.completed
+          }
+        }
+        return task
       })
+      
 
     }
 
     this.setState(newState);
-
-    console.log(this.state.todoList)
 
   }
 
@@ -110,7 +154,15 @@ class App extends React.Component {
         if(!task.completed){
           return task
         }
-      })
+        return
+      }),
+
+      searchResults : this.state.searchResults.filter(task => {
+        if(!task.completed){
+          return task
+        }
+        return
+      }),
     }
 
     this.setState(newState)
@@ -122,8 +174,8 @@ class App extends React.Component {
     return (
       <div className="main">
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm addTodoTask={this.addTodoTask} clearCompleted={this.clearCompleted} />
-        <TodoList todoList={this.state.todoList} toggleCompleted={this.toggleCompleted}/>
+        <TodoForm addTodoTask={this.addTodoTask} clearCompleted={this.clearCompleted} searchTask={this.searchTask}/>
+        <TodoList todoList={this.state.searchResults} toggleCompleted={this.toggleCompleted}/>
       </div>
     );
   }

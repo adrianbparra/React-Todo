@@ -12,7 +12,7 @@ class TodoList extends React.Component{
 
 
     render(){
-        console.log("todoList", this.props.todoList);
+        
         return(
             <ul>
                 
